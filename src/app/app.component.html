@@ -1,0 +1,16 @@
+<h1>Basic upload</h1>
+
+<p>This doesnt actually upload any files. It's just a simple example. For more see the <a href="https://github.com/flowjs/ngx-flow/blob/master/src/app/app.component.html">example</a> in the ngx-flow repository</p>
+
+<ng-container #flowBasic="flow" [flowConfig]="{target: '/images'}"></ng-container>
+
+<input type="file"
+      flowButton
+      [flow]="flowBasic.flowJs">
+
+<div *ngFor="let transfer of (flowBasic.transfers$ | async).transfers" [ngClass]="{'transfer--success': transfer.success}">
+  {{transfer.name}} {{transfer.progress | percent}}
+</div>
+
+<button type="button" (click)="flowBasic.upload()" [disabled]="!(flowBasic.somethingToUpload$ | async)">Start upload</button>
+
